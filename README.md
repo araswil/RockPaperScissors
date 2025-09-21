@@ -1,2 +1,3 @@
 # RockPaperScissors
-Initial Setup
+Simple Game implemented with JAVA
+Use OpenJDK 17.0.2
