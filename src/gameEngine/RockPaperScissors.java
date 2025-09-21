@@ -6,8 +6,8 @@ import java.util.Random;
 
 /**
  * Game engine for Rock-Paper-Scissors
- * @Author: Andreas Raschle
- * @Date: September 21 2025
+ * @author: Andreas Raschle
+ * @date: September 21 2025
  */
 public class RockPaperScissors {
 
