@@ -51,14 +51,22 @@ public class RockPaperScissorsUi extends JFrame {
         } catch (Exception ignored) {
             //show default look and feeling
         }
-        //Get Game instance
+
+        //Get the unerlaining Game instance
         this.rockPaperScissors = RockPaperScissors.getInstance();
+        this.createUiContent();
+    }
+
+    /**
+     * Init the controls and add it to the UI
+     */
+    private void createUiContent() {
         ImageIcon icon = new ImageIcon("src/resources/rock-paper-scissors.png");
         this.setIconImage(icon.getImage());
-
         this.setIcon(this.btnNewMatch,"New", "New Match");
         this.setIcon(this.btnRunAutomatic, "Run", "Run Automatic");
 
+        // Top Panel
         JPanel top = new JPanel(new GridLayout(3, 1, 6, 6));
         top.add(lblGameMode);
         top.add(lblTitle);
@@ -66,7 +74,6 @@ public class RockPaperScissorsUi extends JFrame {
         top.add(lblScoreHvsC);
         this.lblScoreCvsC.setVisible(false);
         top.add(lblScoreCvsC);
-
 
         // Controls row
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 8));
@@ -105,9 +112,13 @@ public class RockPaperScissorsUi extends JFrame {
         setContentPane(content);
         pack();
         this.recalcTargetWins();
+
     }
 
-
+    /**
+     * Play a round
+     * @param userMove see RockPaperScissors.Move
+     */
     private void playRound(RockPaperScissors.Move userMove) {
         this.rockPaperScissors.playRound(userMove);
         this.lblStatus.setText(this.rockPaperScissors.getStatusText());
@@ -121,6 +132,9 @@ public class RockPaperScissorsUi extends JFrame {
         }
     }
 
+    /**
+     * Calculate required wins and set labels
+     */
     private void recalcTargetWins() {
         int bestOf = (Integer) bestOfCombo.getSelectedItem();
         this.rockPaperScissors.setTargetWins(bestOf / 2 + 1);
@@ -134,12 +148,20 @@ public class RockPaperScissorsUi extends JFrame {
         this.rockPaperScissors.getScoreText();
     }
 
+    /**
+     * Enable the buttons to choose from Rock, Scissor, Paper and in extended mode, lizard or Spock
+     * @param enabled
+     */
     private void enableMoveButtons(boolean enabled) {
         for (Component c : buttonPanel.getComponents()) {
             c.setEnabled(enabled);
         }
     }
 
+    /**
+     * Eventhandelr of btnNewMatch
+     * @param e
+     */
     private void initNewMatch(ActionEvent e) {
         this.rockPaperScissors.resetScore();
         lblScoreHvsC.setText(this.rockPaperScissors.getScoreText());
@@ -148,6 +170,10 @@ public class RockPaperScissorsUi extends JFrame {
         this.enableMoveButtons(true);
     }
 
+    /**
+     * Eventhandler of btnRunAutomatic
+     * @param e
+     */
     private void initNewMatchAutomat(ActionEvent e) {
         this.btnNewMatch.setEnabled(false);
         this.rockPaperScissors.resetScore();
@@ -164,12 +190,15 @@ public class RockPaperScissorsUi extends JFrame {
            if (playedRounds > maxRounds) {
                JOptionPane.showMessageDialog(this,
                        this.rockPaperScissors.getResultMessage(),
-                       "Error while run automatic", JOptionPane.ERROR_MESSAGE);
+                       "Error while run in automatic mode", JOptionPane.ERROR_MESSAGE);
                break;
            }
         } while (!this.rockPaperScissors.getIsGameFinished());
     }
 
+    /**
+     * Reset the buttons panel
+     */
     private void resetMoveButtons() {
         buttonPanel.removeAll();
         this.rockPaperScissors.setIsLizardSpockOn(chkSpockToggle.isSelected());
@@ -187,6 +216,9 @@ public class RockPaperScissorsUi extends JFrame {
         pack();
     }
 
+    /**
+     * Handles the Radiobutton options
+     */
     private void togglePlayerMode() {
         if (this.optPcVsPc.isSelected()){
             btnNewMatch.setEnabled(false);
@@ -202,6 +234,12 @@ public class RockPaperScissorsUi extends JFrame {
         }
     }
 
+    /**
+     * Just for the Eye, add Icons
+     * @param button
+     * @param buttonName
+     * @param alternateText
+     */
     private void setIcon(JButton button, String buttonName, String alternateText){
         try {
             switch (buttonName){

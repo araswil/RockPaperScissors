@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class RockPaperScissors {
 
-    //Simple Game Model for two game variants
+    //Simple Game Model, packed in an enum
     public enum Move {
         LIZARD("Lizard"),
         PAPER("Paper"),
@@ -79,6 +79,7 @@ public class RockPaperScissors {
     }
 
     //Getter and setter
+    //========================================================
     public void setIsLizardSpockOn(boolean isLizardSpockOn) {
         this.isLizardSpockOn = isLizardSpockOn;
     }
@@ -113,6 +114,9 @@ public class RockPaperScissors {
         return this.isGameFinished;
     }
 
+    /**
+     * Reset last Results
+     */
     public void resetScore(){
         this.userScore = 0;
         this.cpuScore = 0;
@@ -121,6 +125,10 @@ public class RockPaperScissors {
         this.isGameFinished = false;
     }
 
+    /**
+     * Play method
+     * @param userMove
+     */
     public void playRound(Move userMove) {
         List<Move> moves = this.getActiveMoves();
         Move cpuMove = moves.get(rng.nextInt(moves.size()));
@@ -163,7 +171,9 @@ public class RockPaperScissors {
         this.scoreText= String.format("Score → You %d : %d CPU  (Draws: %d)", userScore, cpuScore, draws);
     }
 
-
+    /**
+     * Check the results and set flag to end the game
+     */
     private void checkResult() {
         if (this.userScore >= this.targetWins || this.cpuScore >= this.targetWins) {
             boolean youWin = userScore > cpuScore;
